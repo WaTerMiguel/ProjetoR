@@ -179,6 +179,7 @@ public class PlayerMove : MonoBehaviour
         {
             podeAndar = false;
             rb.velocity = moveValue * dashForca;
+            rb.bodyType = RigidbodyType2D.Kinematic;
             quantiEnergia--;
             StartCoroutine(DashContador());
         }
@@ -189,6 +190,7 @@ public class PlayerMove : MonoBehaviour
     {
         sandeEffect.enabled = true;
         yield return new WaitForSeconds(dashTempo);
+        rb.bodyType = RigidbodyType2D.Dynamic;
         podeAndar = true;
         rb.velocity = rb.velocity.normalized * speed;
         sandeEffect.enabled = false;
