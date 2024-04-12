@@ -179,7 +179,7 @@ public class PlayerMove : MonoBehaviour
         {
             podeAndar = false;
             rb.velocity = moveValue * dashForca;
-            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.gravityScale = 0f;
             quantiEnergia--;
             StartCoroutine(DashContador());
         }
@@ -190,7 +190,7 @@ public class PlayerMove : MonoBehaviour
     {
         sandeEffect.enabled = true;
         yield return new WaitForSeconds(dashTempo);
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 3f;
         podeAndar = true;
         rb.velocity = rb.velocity.normalized * speed;
         sandeEffect.enabled = false;
@@ -260,21 +260,23 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    public void ChecandoChao(int encostando)
     {
-        if (other.gameObject.CompareTag("Chao"))
+        switch (encostando)
         {
+            
+            case 0:
+            noChao = false;
+                break;
+            
+            case 1:
             rb.velocity = Vector2.zero;
             noChao = true;
-        }
+                break;
 
-    }
-
-    private void OnCollisionExit2D(Collision2D other) 
-    {
-        if (other.gameObject.CompareTag("Chao"))
-        {
-            noChao = false;
+            case 2:
+            noChao = true;
+                break;
         }
     }
 

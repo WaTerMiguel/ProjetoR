@@ -21,9 +21,16 @@ public class RecuperadorEnerEVida : MonoBehaviour
                 }
             }
 
-            Destroy(this.gameObject);
+            StartCoroutine(Desaparecer());
             
         }
+    }
+
+    IEnumerator Desaparecer()
+    {
+        gameObject.SetActive(false);
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(true);
     }
 
 }
